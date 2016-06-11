@@ -1,0 +1,164 @@
+#include <iostream>
+
+using namespace std;
+
+int counternum1 = 0;
+int counternum2 = 0;
+char num1[21];
+char num2[21];
+char flip_array1[21];
+char flip_array2[21];
+int sum[21];
+
+
+void get_Input1 (){
+	
+	int i=0;
+	bool done = false;   
+
+	cout<<"Please enter the first number. Press e to exit the program\n";
+	
+	while(done==false && cin.get(num1[i]))
+	{
+		if (num1[i]=='e'||num1[i]=='E'){
+			exit(1);
+		}
+		if (num1[i]=='\n'){
+			done= true;
+		}
+		i++;
+		counternum1++;
+	}
+	
+	if (counternum1>20)
+	{
+		cout<<"Error!";
+		counternum1=0;
+		i=0;
+		cin.clear();
+		get_Input1();			
+	}
+	cin.clear();
+	
+	cout<<endl<<"You entered the number: \n";
+	for (int i=0;i<counternum1;i++){
+		cout<<num1[i];
+	}
+	cout<<endl;
+}
+
+void get_Input2(){
+	int j=0;
+	bool done = false;
+
+
+	cout<<"Please enter the second number. Press e to exit the program\n";
+	
+	while(done==false && cin.get(num2[j]))
+	{
+		if (num1[j]=='e'||num1[j]=='E'){
+			exit(1);
+		}
+		if (num2[j]=='\n'){
+			done= true;
+		}
+		counternum2++;
+		j++;		
+	}
+	
+	if (counternum2>20)
+	{
+		cout<<"Error!";
+		counternum2=0;
+		j=0;
+		cin.clear();
+		get_Input2();			
+	}
+	cin.clear();
+	
+	cout<<endl<<"You entered the number: \n";
+	for (int i=0;i<counternum2;i++){
+		cout<<num2[i];
+	}
+	cout<<endl;
+	
+}
+
+void get_Sum(){
+		
+	
+	int highRange=0;
+	int lowRange=0;
+	
+	if (counternum1>counternum2){
+		highRange= counternum1;
+		lowRange= counternum2;
+	}
+	else if (counternum2>counternum1){
+		highRange= counternum2;
+		lowRange= counternum1;
+	}
+	else{
+		highRange= counternum1;
+		lowRange= counternum2;
+	}
+
+	
+	for (int i=0; i<= counternum1; i++){
+		flip_array1[i]= num1[counternum1-i];
+		cout<<flip_array1[i];
+	}
+	for (int j=0; j<= counternum2; j++){
+		flip_array2[j]= num2[counternum2-j];
+		cout<<flip_array2[j];
+	}
+	cout<<endl<<flip_array2[1];
+	
+	
+int check1=0;
+int check2=0;
+int carryOverVal=0;
+	
+	for (int k=2; k<=highRange;k++){
+		check1= flip_array1[k]-48;
+		check2= flip_array2[k]-48;
+		if (check1<0){
+			flip_array1[k]=48;
+		}
+		if (check2<0){
+			flip_array2[k]=48;
+		}
+		sum[k]= (flip_array1[k]-48) + (flip_array2[k]-48) + carryOverVal;
+		carryOverVal=0;
+		if (sum[k]>=10 && k!=highRange){
+			sum[k]= sum[k]%10;
+			carryOverVal=1;
+		}
+	}
+	
+cout<<endl<<"The sum is: ";
+
+for (int i=0; i<=highRange-2; i++){
+	cout<<sum[highRange-i];
+}
+cout<<endl;
+	
+}
+
+void rerun(){
+	int input=0;
+	do{
+		get_Input1();
+		get_Input2();
+		get_Sum();
+		cout<<"Please enter 1 if you would like to run the program again. \n";
+		cin>>input;
+		cin.ignore();
+	}while (input==1);
+}
+
+
+int main(){
+	
+	rerun();
+}
