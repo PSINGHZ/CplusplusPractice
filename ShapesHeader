@@ -1,0 +1,60 @@
+#ifndef SHAPE
+#define SHAPE
+
+enum Shape_Type {SQUARE, DIAMOND, PYRAMID, TRIANGLE};
+
+class Shape {
+	public:
+		
+		//Default constructor initialization, Overloaded constructer initialization, and Function declarations
+		Shape ();
+		Shape (Shape_Type x);
+		void defineSize();
+		void defineFill();
+		int getSize();
+		int setSize(int x);
+		void printFilledShape(ofstream& out_stream);
+		void printHollowShape(ofstream& out_stream);
+		bool getIsFilled();
+	private:
+		Shape_Type shape_type;
+		int shape_size;
+		bool isFilled;
+};
+
+//Inherited for shapes square,triangle,pyramid, and diamond
+
+class Square: public Shape {
+	public:
+		
+		void defineSize();
+		void printFilledShape(ofstream& out_stream);
+		void printHollowShape(ofstream& out_stream);
+};
+
+class Diamond: public Shape{
+	public:
+		
+		void defineSize();
+		void printFilledShape(ofstream& out_stream);
+		void printHollowShape(ofstream& out_stream);
+};
+
+class Triangle: public Shape{
+	public:
+		
+		void defineSize();
+		void printFilledShape(ofstream& out_stream);
+		void printHollowShape(ofstream& out_stream);
+};
+
+class Pyramid: public Shape{
+	public:
+		
+		void defineSize();
+		void printFilledShape(ofstream& out_stream);
+		void printHollowShape(ofstream& out_stream);
+};
+
+
+#endif
