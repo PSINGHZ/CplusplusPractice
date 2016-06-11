@@ -1,0 +1,32 @@
+#include <iostream>
+
+using namespace std;
+
+
+int n = 0;
+int factorial = 1;
+
+int main(){
+	//Prompts user to enter non-negative integer
+	cout<< "Please enter a non-negative integer: ";
+	cin>>n;
+	
+	//Prompts user to enter a valid number 
+	while (n<0){
+		cout<<"Invalid number. Please enter a valid number.";
+		cin>>n;
+	}
+
+	//Outputs 1 if factorial is equal to 1
+	if (n==0){
+		n=1;
+		cout<<n;
+	}
+	else{
+		//Performs iterative calculation of factorial
+		for (int i= 1; i<=n; i++){
+		factorial *= i;	
+	}
+	cout<<" The factorial value is "<<factorial;
+	}
+}
