@@ -1,0 +1,175 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+
+//Function declarations 
+void getDirection(int a, double &b);
+void input(double &speed, double &wind, double &direction, double &destinationDirection, int &compassDir );
+void ComputeHeading(double &wind, double windHeading, double &headingAngle, double planeSpeed, double compassDir);
+void EstimatedFlightTime(double planeSpeed, double gspeed,double directionDistance, double headingAngle, double &planeTime, double compassDir);
+void Output(double headingAngle, double planeTime);
+
+
+int main (){
+	//Structure called flight was creating to organize all variables related to wind and plane travel
+	struct flight {
+		double cruisingSpeed;
+		double windspeed;
+		double flightdistance;
+		double windDirection;
+		double compassDirection;
+		int compassVar;
+		double flightAngle;
+		double flightTime;
+		double groundSpeed;	
+	};
+
+	//Initialized Global Structure Variable 
+	flight plane;
+	
+	input(plane.cruisingSpeed,plane.windspeed,plane.windDirection,plane.flightdistance,plane.compassVar);
+	//Gets direction of plane in degrees based on number input from above
+	getDirection(plane.compassVar,plane.compassDirection);
+	// ComputeHeading(double &wind, double windHeading, double &headingAngle, double planeSpeed, double compassDir )
+	ComputeHeading(plane.windspeed,plane.windDirection,plane.flightAngle,plane.cruisingSpeed,plane.compassDirection);
+	EstimatedFlightTime(plane.cruisingSpeed,plane.groundSpeed,plane.flightdistance,plane.flightAngle,plane.flightTime,plane.compassDirection);
+	Output(plane.flightAngle,plane.flightTime);
+}
+
+//Determines angle required to travel in desired direction using switch statements based on input
+void getDirection(int a, double &b){
+	
+	switch (a){
+		case 1:
+			//NEE Direction
+			b	= 22.5;
+			break;
+		case 2:
+			//NE Direction
+			b	= 45;
+			break;
+		case 3:
+			//NNE Direction
+			b	= 67.5;
+			break;
+		case 4:
+			//N Direction
+			b	= 90;
+			break;
+		case 5:
+			//NNW Direction
+			b	= 112.5;
+			break;
+		case 6:
+			//NW Direction
+			b	= 135;
+			break;
+		case 7:
+			//NWW Direction
+			b	= 157.5;
+			break;
+		case 8:
+			//W Direction
+			b	= 180;
+			break;
+		case 9:
+			//SWW Direction
+			b	= 202.5;
+			break;
+		case 10:
+			//SW Direction
+			b	= 225;
+			break;
+		case 11:
+			//SSW Direction
+			b	= 247.5;
+			break;
+		case 12:
+			//S Direction
+			b	= 270;
+			break;
+		case 13:
+			//SSE Direction
+			b	= 292.5;
+			break;
+		case 14:
+			//SE Direction
+			b	= 315;
+			break;
+		case 15:
+			//SEE Direction
+			b	= 337.5;
+			break;
+		case 16:
+			//E Direction
+			b	= 360;
+			break;
+		
+	}
+
+}
+
+//Inputs all of the required information from the user
+void input(double &speed, double &wind, double &direction, double &destinationDirection, int &compassVar ){
+	//Inputs the cruising speed of the aircraft
+	cout<<"Please enter the aircraft's cruising speed in still air (in km/h): \n";
+	cin>> speed;
+	cout<<"The cruising speed of the plane is "<<speed<<" km/h"<<endl<<endl;
+	
+	//Inputs the windspeed in a positive
+	cout<<"Please enter the windspeed in km/h: \n";
+	cin>> wind;
+	cout<<"The windspeed is "<<wind<<" km/h"<<endl<<endl;
+	
+	//Inputs direction of wind based on negative and positive 
+	cout<<"Enter 1 if the wind is blowing from the West and -1 if wind is blowing form the East: \n";
+	cin>> direction;
+	if (direction==1){
+		cout<<"The wind is blowing from the West"<<endl<<endl;
+	}
+	else{
+		cout<<"The wind is blowing from the East."<<endl<<endl;
+	}
+	
+	//Inputs distance required to travel to destination
+	cout<<"Enter the distance between the originating and destination cities, in km: \n";
+	cin>> destinationDirection;
+	
+	//Inputs the direction desired to travel in
+	cout<<endl<<"Enter the compass direction of the destination city, realative to the originating cities, using the following values: \n"
+	<<"1: ENE\n"<<"2. NE\n"
+	<<"3. NNE \n"<<"4. N \n"
+	<<"5. NNW \n"<<"6. NW \n"
+	<<"7. WNW \n"<<"8. W \n"
+	<<"9. WSW \n"<<"10. Sw \n"
+	<<"11. SWS\n"<<"12. S \n"
+	<<"13. SSE \n"<<"14. SE \n"
+	<< "15. ESE \n"<<"16. E \n\n";
+	
+	cin>>compassVar;
+	
+	
+	
+}
+
+//Determines the flight angle of the aircraft by converting to radians and then converting back to degrees
+void ComputeHeading(double &wind, double windHeading, double &headingAngle, double planeSpeed, double compassDir ){
+	wind *= windHeading;
+	headingAngle = compassDir - asin((-wind / planeSpeed)*(sin((compassDir)*M_PI/180)))*(180/M_PI);
+	
+}
+ 
+//Determines the estimated time of flight by converting to radians and calculating
+void EstimatedFlightTime(double planeSpeed, double gspeed,double directionDistance, double headingAngle, double &planeTime, double compassDir){
+	
+	gspeed= (sin((headingAngle)*M_PI/180)/sin((compassDir)*M_PI/180))*planeSpeed;
+	planeTime= directionDistance/gspeed;
+
+}
+
+//Displays the output of adjusted flight heading and estimated time of flight
+void Output(double headingAngle, double planeTime){
+	cout<<"Your adjusted flight heading is: "<<headingAngle<<" degrees. \n"<<"Your estimated flight time is: "<<planeTime<<" hours";
+}
