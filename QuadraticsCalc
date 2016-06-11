@@ -1,0 +1,67 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+struct quadratics {
+	double real1;
+	double real2;
+	double imaginary;
+};
+
+quadratics roots;
+
+void EnterQuadVal(double &x, double &y, double&z){
+	cout<<"Please enter value for coefficient a \n";
+	cin>>x;
+	cout<<"Please enter value for coefficient b \n";
+	cin>>y;
+	cout<<"Please enter value for coefficient c \n";
+	cin>>z;
+}
+
+void CalculateRoots(double a, double b, double c ){
+	
+	roots.imaginary= pow(b,2) - (4*a*c);
+	
+	if ( roots.imaginary < 0 ){
+		roots.imaginary*=-1;
+		roots.imaginary= sqrt(roots.imaginary);
+		
+	} 
+	else{
+		roots.imaginary=0;
+		roots.real1= (-1*b + (sqrt( pow(b,2) - 4*a*c)))/(2*a);
+		roots.real2= (-1*b - (sqrt (pow(b,2) - 4*a*c)))/(2*a);
+
+	}
+	
+}
+
+void DisplayRoots(double a,double b, double c){
+	if (roots.imaginary>0){
+		if(a==0.5){
+			cout<<-1*b/(2*a)<<" + "<<roots.imaginary/(2*a)<<"i "<<endl;
+			cout<<-1*b/(2*a)<<" - "<<roots.imaginary/(2*a)<<"i "<<endl;
+		}
+		else{
+			cout<<-1*b/(2*a)<<" + "<<roots.imaginary/(2*a)<<"i "<<endl;
+			cout<<-1*b/(2*a)<<" - "<<roots.imaginary/(2*a)<<"i "<<endl;
+		}
+	}
+	else{
+		cout<<roots.real1;
+		cout<<roots.real2;
+	}
+}
+
+
+int main(){
+	double a=0,b=0,c=0;
+	EnterQuadVal(a,b,c);
+	CalculateRoots(a,b,c);
+	DisplayRoots(a,b,c);
+	
+
+	
+}
