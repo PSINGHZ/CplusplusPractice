@@ -1,0 +1,63 @@
+#include "coord.h"
+#include <iostream>
+#include <cmath>
+
+
+using namespace std;
+
+//Inputs the values of a point from the user
+void get_point (Point3D &point){
+	cout<<"\n Please enter ID of coordinate: \n";
+	cin>>point.ID;
+	cout<<"The ID of the variable is "<<point.ID<<endl<<endl;
+	
+	cout<<"Please enter x coordinate: \n";
+	cin>>point.xCor;
+	cout<<"The x coordinate of the variable is "<<point.xCor<<endl<<endl;
+	
+	cout<<"Please enter y coordinate: \n";
+	cin>>point.yCor;
+	cout<<"The y coordinate of the variable is "<<point.yCor<<endl<<endl;
+	
+	cout<<"Please enter z coordinate: \n";
+	cin>>point.zCor;
+	cout<<"The z coordinate of the variable is "<<point.zCor<<endl<<endl;
+	
+	cout<<"Please enter accuracy of the point: \n";
+	cin>>point.order;
+	if (point.order=='A' || point.order=='a'){
+		cout<<"There is a high accuracy of the point \n";
+	}
+	else if(point.order=='B' || point.order=='b'){
+		cout<<"There is a medium accuracy of the point \n";
+	}
+	else if(point.order=='C' || point.order=='c'){
+		cout<<"There is a low accuracy of the point \n";
+	}
+}
+
+//Prints the x and y coordinates of the point to the screen
+void print_point( const Point3D &point ){
+	cout<<"The point has the coordinates ("<<point.xCor<<","<<point.yCor<<","<<point.zCor<<")"<<" with ID number: "<<point.ID<<endl;
+}
+
+//Calculates the spatial distance between two points 
+void spatial_dist(Point3D &point1, Point3D &point2){
+	point1.spatialDistance= sqrt( pow(point2.xCor-point1.xCor,2) + pow(point2.yCor-point1.yCor,2) + pow(point2.zCor-point1.zCor,2)) ;
+	
+}
+
+//Calculates the planimetric distance between two points
+void plani_dist(Point3D &point1,Point3D &point2){
+	point1.planimetricDistance= sqrt(pow(point2.xCor-point1.xCor,2) + pow(point2.yCor-point1.yCor,2));
+}
+
+//Calculates the height differential between the z-coordinate of two points 
+void ht_diff(Point3D &point1, Point3D &point2){
+	point1.heightdiff= point2.zCor- point1.zCor;
+}
+
+//Calculates the azimuth(heading) between two points
+void azimuth(Point3D &point1, Point3D &point2){
+	point1.angle= atan( (point2.yCor - point1.yCor)/ (point2.xCor - point1.xCor) ) *(180/M_PI);
+}
