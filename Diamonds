@@ -1,0 +1,47 @@
+#include <iostream>
+using namespace std;
+
+int main(){
+	int counter=0; //Counter for number of rows
+	int End=0; //Last number of inputted counter
+	int AsterickStart=0; //Boundary for the start of Asterick boundary
+	int AsterickEnd=0; //Boundary for the end of Asterick boundary
+	bool increase= true; //Boolean value for spaces 
+
+	//Inputs the number of rows between 3 and 19
+	do{
+		cout<<"Please enter an odd value between 3 and 19\n";
+		cin>>counter;
+	}while(counter%2!=1 && 3<counter && counter<19);
+
+	
+	End= counter-1; //End is the largest number of astericks in the middle row
+	AsterickStart=(End/2); //AsterickStart begins at the middle of the row
+	AsterickEnd= (End/2); //AsterickEnd begins at the middle of the row
+	
+	//Nested for loop for calculating the amount of astericks outputted each row
+	for (int i=1; i<counter+1;i++){
+		cout<<endl;
+		for (int j=0; j<counter;j++){
+	
+	    	if (j>=AsterickStart && j<=AsterickEnd ){ //If j value is in between Asterick boundaries, then output *
+	    		cout<<"*";
+			}	
+			else{ //Otherwise a space is outputted
+				cout<<" ";
+			}
+		}
+		if(AsterickStart==0){ //Once the asterick start boundary equals 0, the boolean increase changes for spaces to decrease
+			increase=false;
+		}
+		if (increase==true){ //If increase is true, the asterick boundaries will grow
+			AsterickStart--;
+			AsterickEnd ++;
+		}
+		else if(increase==false){ //If increase is false, the asterick boundaries will decrease
+			AsterickStart++;
+			AsterickEnd--;
+		}
+	}	
+	
+}
