@@ -1,0 +1,26 @@
+#ifndef COORD_H
+#define COORD_H
+
+//Created a structure called Point3D with various components
+struct Point3D{
+	int ID;
+	double xCor;
+	double yCor;
+	double zCor;
+	char order;
+	//Refer to components of Point3D in affiliation with another point of the same struct
+	double spatialDistance;
+	double planimetricDistance;
+	double heightdiff;
+	double angle;
+};
+
+//Various function declarations for printing points or caclulating distances
+void get_point (Point3D &point);
+void print_point( const Point3D &point );
+void spatial_dist(Point3D &point1, Point3D &point2);
+void plani_dist(Point3D &point1,Point3D &point2);
+void ht_diff(Point3D &point1, Point3D &point2);
+void azimuth(Point3D &point1, Point3D &point2);
+
+#endif 
